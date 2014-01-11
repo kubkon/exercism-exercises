@@ -2,27 +2,24 @@ module Bob (
   responseFor,
   ) where
 
-import Text.Regex.Posix ((=~))
+
+import qualified Data.Char as DC
 
 responseFor :: String -> String
 responseFor statement
-  | matchSilence statement = "Fine. Be that way!"
-  | matchShouting statement = "Woah, chill out!"
-  | matchQuestion statement = "Sure."
+  | isSilent statement = "Fine. Be that way!"
+  | isAsking statement = "Sure."
+  | isShouting statement = "Woah, chill out!"
   | otherwise = "Whatever."
 
+isSilent :: String -> Bool
+isSilent = all DC.isSpace
 
-matchSilence :: String -> Bool
-matchSilence str = str =~ "^[ ]+$" || str == ""
+isShouting :: String -> Bool
+isShouting = all func
+  where func c
+          | DC.isLetter c = DC.isUpper c
+          | otherwise = True
 
-matchShouting :: String -> Bool
-matchShouting str = justLetters || lettersAndNumbers || specialChars
-  where justLetters = str =~ "^[A-Z ]+[!?]*$"
-        lettersAndNumbers = str =~ "^([0-9][,]*[ ])+[A-Z]+!$"
-        specialChars = str =~ "^[A-Z%\\^\\*@#\\$\\(\\) ]+[0-9!]+$"
-
-matchQuestion :: String -> Bool
-matchQuestion str = justLetters || justNumbers || justNonLetters
-  where justLetters = str =~ "^[A-Za-z ,]+\\?$"
-        justNumbers = str =~ "^[0-9]+\\?$"
-        justNonLetters = str =~ "^([^A-Za-z]+[ ])+\\?$"
+isAsking :: String -> Bool
+isAsking str = last str == '?'
