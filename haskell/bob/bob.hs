@@ -3,22 +3,23 @@ module Bob (
   ) where
 
 
-import qualified Data.Char as DC
+import Data.Char (isSpace, isLetter, isUpper)
+
 
 responseFor :: String -> String
 responseFor statement
   | isSilent statement = "Fine. Be that way!"
-  | isAsking statement = "Sure."
   | isShouting statement = "Woah, chill out!"
+  | isAsking statement = "Sure."
   | otherwise = "Whatever."
 
 isSilent :: String -> Bool
-isSilent = all DC.isSpace
+isSilent = all isSpace
 
 isShouting :: String -> Bool
-isShouting = all func
+isShouting str = all func str && any isLetter str
   where func c
-          | DC.isLetter c = DC.isUpper c
+          | isLetter c = isUpper c
           | otherwise = True
 
 isAsking :: String -> Bool
