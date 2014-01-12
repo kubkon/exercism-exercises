@@ -8,9 +8,7 @@ import Data.Char (toUpper)
 
 
 sing :: Int -> Int -> String
-sing from to
-  | from == to = verse from ++ "\n"
-  | otherwise = verse from ++ "\n" ++ sing (from-1) to
+sing from to = concat $ map (\x -> verse x ++ "\n") [from,from-1..to]
 
 verse :: Int -> String
 verse n =  capitalize (numOfBottles n) ++ " of beer on the wall, " ++ numOfBottles n ++ " of beer.\n" ++ takeAction n ++ ", " ++ numOfBottles (n-1) ++ " of beer on the wall.\n"
@@ -25,8 +23,8 @@ verse n =  capitalize (numOfBottles n) ++ " of beer on the wall, " ++ numOfBottl
           where pluralizedBottle = pluralize "bottle" n
 
 capitalize :: String -> String
-capitalize str = capitalized : tail str
-  where capitalized = toUpper $ head str
+capitalize "" = ""
+capitalize (x:xs) = toUpper x : xs
 
 pluralize :: String -> Int -> String
 pluralize str n
