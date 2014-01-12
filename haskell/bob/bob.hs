@@ -17,8 +17,8 @@ isSilent :: String -> Bool
 isSilent = all isSpace
 
 isShouting :: String -> Bool
-isShouting str = all func str && any isLetter str
-  where func c
+isShouting str = all ifLetterIsCapital str && any isLetter str
+  where ifLetterIsCapital c
           | isLetter c = isUpper c
           | otherwise = True
 
