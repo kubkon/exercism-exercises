@@ -8,7 +8,7 @@ import Data.Char (toUpper)
 
 
 sing :: Int -> Int -> String
-sing from to = concat $ map (\x -> verse x ++ "\n") [from,from-1..to]
+sing from to = unlines $ map verse [from,from-1..to]
 
 verse :: Int -> String
 verse n =  capitalize (numOfBottles n) ++ " of beer on the wall, " ++ numOfBottles n ++ " of beer.\n" ++ takeAction n ++ ", " ++ numOfBottles (n-1) ++ " of beer on the wall.\n"
