@@ -4,6 +4,7 @@ module Anagram (
 
 
 import Data.Char (toLower)
+import Data.Function (on)
 import Data.List (sort)
 
 
@@ -15,4 +16,4 @@ anagramsFor str = foldr reduce []
             | otherwise = acc
 
 isBijection :: Ord a => [a] -> [a] -> Bool
-isBijection s1 s2 = sort s1 == sort s2
+isBijection = (==) `on` sort
