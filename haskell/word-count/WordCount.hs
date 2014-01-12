@@ -17,9 +17,9 @@ wordCount str = DM.fromList $ zip uniqueWords counts
 
 sanitize :: String -> String
 sanitize = map replace
-  where replace c = if isPunctuation c || isSymbol c
-                      then ' '
-                      else toLower c
+  where replace c
+          | isPunctuation c || isSymbol c = ' '
+          | otherwise = toLower c
 
 countElements :: Eq a => a -> [a] -> Int
 countElements x = length . filter (\y -> y == x)
