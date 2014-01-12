@@ -4,22 +4,16 @@ module WordCount (
 
 
 import Data.Char (toLower, isPunctuation, isSymbol)
-import qualified Data.Map as DM
-import qualified Data.Set as DS
+import Data.Map.Strict (Map, insertWith, empty)
 import Data.String.Utils (replace)
 
 
-wordCount :: String -> DM.Map String Int
-wordCount str = DM.fromList $ zip uniqueWords counts
+wordCount :: String -> Map String Int
+wordCount str = foldr (\x acc -> insertWith (+) x 1 acc) empty allWords
   where allWords = words $ sanitize str
-        uniqueWords = DS.toList $ DS.fromList allWords
-        counts = map (\f -> f allWords) $ map countElements uniqueWords
 
 sanitize :: String -> String
 sanitize = map replace
   where replace c
           | isPunctuation c || isSymbol c = ' '
           | otherwise = toLower c
-
-countElements :: Eq a => a -> [a] -> Int
-countElements x = length . filter (\y -> y == x)
