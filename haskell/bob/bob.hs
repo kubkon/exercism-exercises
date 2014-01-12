@@ -17,8 +17,8 @@ isSilent :: String -> Bool
 isSilent = all isSpace
 
 isShouting :: String -> Bool
-isShouting str = all ifLetterIsCapital str && any isLetter str
-  where ifLetterIsCapital c
+isShouting str = all isCapitalIfLetter str && any isLetter str
+  where isCapitalIfLetter c
           | isLetter c = isUpper c
           | otherwise = True
 
