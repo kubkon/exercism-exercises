@@ -1,15 +1,15 @@
 module WordCount (
   wordCount,
-  ) where
+) where
 
 
 import Data.Char (toLower, isPunctuation, isSymbol)
-import Data.Map.Strict (Map, insertWith, empty)
+import Data.Map.Strict (Map, fromListWith)
 import Data.String.Utils (replace)
 
 
 wordCount :: String -> Map String Int
-wordCount str = foldr (\x acc -> insertWith (+) x 1 acc) empty allWords
+wordCount str = fromListWith (+) $ zip allWords $ repeat 1
   where allWords = words $ sanitize str
 
 sanitize :: String -> String
