@@ -9,11 +9,11 @@ import Data.List (sort)
 
 
 anagramsFor :: String -> [String] -> [String]
-anagramsFor str = foldr reduce []
-    where reduce x acc
-            | str == x = acc
-            | isBijection (map toLower str) $ map toLower x = x:acc
-            | otherwise = acc
+anagramsFor str = filter reduce
+  where toLowerCase = map toLower
+        str' = toLowerCase str
+        reduce x = str' /= x' && isBijection str' x'
+          where x' = toLowerCase x
 
 isBijection :: Ord a => [a] -> [a] -> Bool
 isBijection = (==) `on` sort

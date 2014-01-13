@@ -15,7 +15,7 @@ count c
 
 nucleotideCounts :: String -> Map Char Int
 nucleotideCounts = foldl' updateMap initMap
-  where initMap = fromList $ zip nucleotidesInDNA $ replicate (length nucleotidesInDNA) 0
+  where initMap = fromList $ zip nucleotidesInDNA $ repeat 0
         updateMap = flip $ adjust (1+)
 
 allNucleotides :: String
