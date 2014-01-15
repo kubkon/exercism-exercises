@@ -26,9 +26,7 @@ invalidNumber :: String
 invalidNumber = replicate 10 '0'
 
 prettyPrint :: String -> String
-prettyPrint = concat . prepare . splitPlaces [3, 3, 4] . number
-  where prepare (x:y:z:[]) = [
-                               "(" ++ x ++ ")"
-                             , " " ++ y ++ "-"
-                             , z
-                             ]
+prettyPrint = concat
+            . zipWith (++) ["(", ") ", "-"]
+            . splitPlaces [3, 3, 4]
+            . number
