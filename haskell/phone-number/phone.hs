@@ -20,7 +20,8 @@ validate "" = invalidNumber
 validate num
   | check = reverse $ take 10 $ reverse num
   | otherwise = invalidNumber
-  where check = length num > 9 && head num == '1'
+  where check = isNDigits 10 || (isNDigits 11 && head num == '1')
+        isNDigits = (==) $ length num
 
 invalidNumber :: String
 invalidNumber = replicate 10 '0'
