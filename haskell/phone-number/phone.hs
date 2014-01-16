@@ -16,15 +16,11 @@ number :: String -> String
 number = validate . filter isNumber
 
 validate :: String -> String
-validate "" = invalidNumber
 validate num
-  | check = reverse $ take 10 $ reverse num
-  | otherwise = invalidNumber
-  where check = isNDigits 10 || (isNDigits 11 && head num == '1')
-        isNDigits = (==) $ length num
-
-invalidNumber :: String
-invalidNumber = replicate 10 '0'
+  | len == 10 = num
+  | len == 11 && head num == '1' = tail num
+  | otherwise = replicate 10 '0'
+  where len = length num
 
 prettyPrint :: String -> String
 prettyPrint = concat
