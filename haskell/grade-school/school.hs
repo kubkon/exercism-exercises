@@ -7,18 +7,18 @@ module School (
 ) where
 
 import Data.List (sort)
-import qualified Data.Map.Strict as DMS
+import qualified Data.Map.Strict as M
 
-type School = DMS.Map Int [String]
+type School = M.Map Int [String]
 
 empty :: School
-empty = DMS.empty
+empty = M.empty
 
 add :: Int -> String -> School -> School
-add key name = DMS.insertWith (++) key [name]
+add key name = M.insertWith (++) key [name]
 
 sorted :: School -> [(Int, [String])]
-sorted = DMS.toAscList . DMS.map sort
+sorted = M.toAscList . M.map sort
 
 grade :: Int -> School -> [String]
-grade = DMS.findWithDefault []
+grade n = sort . M.findWithDefault [] n
