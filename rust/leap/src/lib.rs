@@ -1,6 +1,4 @@
 pub fn is_leap_year(year: usize) -> bool {
-    match year {
-        year if year % 4 == 0 && (year % 100 != 0 || year % 400 == 0) => true,
-        _ => false,
-    }
+    year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
 }
+
