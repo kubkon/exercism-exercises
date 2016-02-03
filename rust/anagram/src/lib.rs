@@ -4,8 +4,9 @@ pub fn anagrams_for<'a>(string: &str, inputs: &[&'a str]) -> Vec<&'a str> {
         chars.sort();
         chars
     };
-    let allowed_inputs = inputs.iter().filter(|&s| s.to_lowercase() != string.to_lowercase());
-    allowed_inputs.filter(|&s| sort(s.to_lowercase()) == sort(string.to_lowercase()))
-                  .cloned()
-                  .collect()
+    inputs.iter()
+          .filter(|&s| s.to_lowercase() != string.to_lowercase())
+          .filter(|&s| sort(s.to_lowercase()) == sort(string.to_lowercase()))
+          .cloned()
+          .collect()
 }
