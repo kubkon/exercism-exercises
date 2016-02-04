@@ -26,7 +26,7 @@ impl Allergen {
 }
 
 #[derive(Clone,Debug)]
-struct AllergenIterator {
+pub struct AllergenIterator {
     count: u32,
 }
 
