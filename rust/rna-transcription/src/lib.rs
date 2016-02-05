@@ -1,3 +1,5 @@
+use std::iter::FromIterator;
+
 #[derive(Clone,Debug,PartialEq)]
 pub struct RibonucleicAcid {
     strand: String,
@@ -24,6 +26,16 @@ impl DeoxyribonucleicAcid {
     }
 
     pub fn to_rna(&self) -> RibonucleicAcid {
-        RibonucleicAcid::new(&self.strand)
+        let transcribe = |c| {
+            match c {
+                'G' => 'C',
+                'C' => 'G',
+                'T' => 'A',
+                'A' => 'U',
+                _   => panic!("That should not happen!"),
+            }
+        };
+        let rna_strand = String::from_iter(self.strand.chars().map(transcribe));
+        RibonucleicAcid::new(&rna_strand)
     }
 }
